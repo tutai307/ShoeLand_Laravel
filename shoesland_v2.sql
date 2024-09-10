@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2024 at 06:04 PM
+-- Generation Time: Sep 10, 2024 at 05:32 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -20,6 +20,43 @@ SET time_zone = "+00:00";
 --
 -- Database: `shoesland_v2`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` char(36) NOT NULL,
+  `user_id` char(36) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
+('b709d140-c852-4d2c-9141-d3f55574bff7', '9cd0016d-81b9-4122-8d61-b532608d9c4c', '2024-08-26 19:24:04', '2024-09-08 19:26:48');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart_items`
+--
+
+CREATE TABLE `cart_items` (
+  `id` char(36) NOT NULL,
+  `cart_id` char(36) NOT NULL,
+  `product_id` char(36) NOT NULL,
+  `size_id` char(36) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `unit_price` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -76,11 +113,11 @@ CREATE TABLE `events` (
 
 INSERT INTO `events` (`id`, `code`, `name`, `start_date`, `end_date`, `discount`, `created_at`, `updated_at`, `image`, `description`) VALUES
 ('1a2b3c4d-1a2b-1a2b-1a2b-1a2b3c4d5e6f', 'EV5', 'Summer Sale', '2024-08-15 00:00:00', '2024-09-01 00:00:00', 25, '2024-08-08 01:08:11', '2024-08-08 01:19:36', 'events/fH9Vxp2lQiecLdzfd7gwf5Cf3b7LfkTforYw4CkD.png', 'Giảm giá mùa hè lên đến 25%, mua 1 tặng 1.'),
-('2b3c4d5e-2b3c-2b3c-2b3c-2b3c4d5e6f7g', 'EV6', 'Back to School', '2024-08-10 00:00:00', '2024-09-10 00:00:00', 20, '2024-08-08 01:08:11', '2024-08-08 01:19:20', 'events/Lf7h7gV1hVPIfDo7mfZBiM9TRjIixvSV7MuA9WlE.png', 'Khuyến mãi mùa tựu trường, giảm đến 20%.'),
-('2df4098f-cb49-4ecb-8590-deedfc671491', 'EV1', 'Ưu đãi tháng 10', '2024-08-08 00:00:00', '2024-08-31 00:00:00', 20, '2024-08-06 08:47:11', '2024-08-08 01:03:03', 'events/G64DXC1oCViFKsbWtMnTVeIuzdaAuuuB1zJUgQIe.png', 'Sự kiện giảm giá và khuyến mãi đặc biệt cho mùa đông đã tới.'),
+('2b3c4d5e-2b3c-2b3c-2b3c-2b3c4d5e6f7g', 'EV6', 'Back to School', '2024-08-10 00:00:00', '2024-09-10 00:00:00', 20, '2024-08-08 01:08:11', '2024-08-19 09:47:00', 'events/OZBmkBaRA1OcD2MrR5djkyPj2t9zip4yUHLIknde.jpg', 'Khuyến mãi mùa tựu trường, giảm đến 20%.'),
+('2df4098f-cb49-4ecb-8590-deedfc671491', 'EV1', 'Ưu đãi tháng 10', '2024-08-08 00:00:00', '2024-09-07 00:00:00', 20, '2024-08-06 08:47:11', '2024-09-02 20:09:43', 'events/G64DXC1oCViFKsbWtMnTVeIuzdaAuuuB1zJUgQIe.png', 'Sự kiện giảm giá và khuyến mãi đặc biệt cho mùa đông đã tới.'),
 ('3c4d5e6f-3c4d-3c4d-3c4d-3c4d5e6f7g8h', 'EV7', 'Winter Sale', '2024-11-01 00:00:00', '2024-11-30 00:00:00', 35, '2024-08-08 01:08:11', '2024-08-08 01:19:01', 'events/HibDKX6znWK64HejvuUD39kKpfEuDXrRlu9FkZ7E.png', 'Giảm giá mùa đông, giảm đến 35%.'),
 ('4d5e6f7g-4d5e-4d5e-4d5e-4d5e6f7g8h9i', 'EV8', 'Black Friday', '2024-11-25 00:00:00', '2024-12-01 00:00:00', 50, '2024-08-08 01:08:11', '2024-08-08 01:19:50', 'events/iTUlkip3exMTkKam05pABO26vgRmsUlWMg1eiPqK.png', 'Siêu khuyến mãi Black Friday, giảm đến 50%.'),
-('71616918-7c51-4734-a061-1e956823f553', 'EV2', 'Chương trình mua giày cặp đôi', '2024-08-08 00:00:00', '2024-08-30 00:00:00', 15, '2024-08-08 01:04:57', '2024-08-08 01:04:57', 'events/N8kNVDzNdovn5TJqMgUaWVlPo73oV43pxPoM0FH0.png', 'Khách hàng là cặp đôi sẽ nhận về ưu đãi, giảm giá và quà tặng giá trị.'),
+('71616918-7c51-4734-a061-1e956823f553', 'EV2', 'Chương trình mua giày cặp đôi', '2024-08-08 00:00:00', '2024-10-04 00:00:00', 15, '2024-08-08 01:04:57', '2024-09-02 20:09:57', 'events/N8kNVDzNdovn5TJqMgUaWVlPo73oV43pxPoM0FH0.png', 'Khách hàng là cặp đôi sẽ nhận về ưu đãi, giảm giá và quà tặng giá trị.'),
 ('8bb81fcb-6c8d-4a61-8e50-5f096b9de88c', 'EV4', 'Flash Sale', '2024-08-08 00:00:00', '2024-08-31 00:00:00', 30, '2024-08-08 01:08:11', '2024-08-08 01:08:11', 'events/xI0g3dLEzjQtVPTpmL2nyseGoqvAemfSa9CEsPs6.png', 'Sale giá sốc-giảm đến 30%, freeship từ 2 đôi.'),
 ('c080d0d0-42d1-4198-ba81-83eaca22df39', 'EV3', 'Mua càng nhiều giảm càng nhiều', '2024-08-08 00:00:00', '2024-08-31 00:00:00', 15, '2024-08-08 01:06:23', '2024-08-08 01:06:23', 'events/zQeWsKGButvBgm6akLmc8U3BxcTfYoy1lz3GkvRA.png', 'Mua từ 3 đôi trở lên nhận giảm giá cực sốc.');
 
@@ -132,7 +169,70 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2024_08_06_152814_add_code_to_events_table', 7),
 (14, '2024_08_08_083434_create_sizes_table', 8),
 (15, '2024_08_09_031808_create_product_images_table', 9),
-(16, '2024_08_19_135600_create_product_sizes_table', 10);
+(16, '2024_08_19_135600_create_product_sizes_table', 10),
+(18, '2024_08_20_084127_add_google_id_to_users_table', 11),
+(20, '2024_08_26_075504_create_carts_table', 12),
+(21, '2024_08_26_075558_create_cart_items_table', 12),
+(23, '2024_09_01_134756_create_statuses_table', 13),
+(24, '2024_09_01_145010_create_payments_table', 13),
+(25, '2024_09_01_154825_add_role_to_users_table', 14),
+(26, '2024_09_04_013140_create_orders_table', 15),
+(27, '2024_09_04_014024_create_order_items_table', 16),
+(28, '2024_09_07_064506_add_uuid_to_order_items_table', 17);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` char(36) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `user_id` char(36) NOT NULL,
+  `status_id` char(36) NOT NULL,
+  `receive_phone` varchar(255) DEFAULT NULL,
+  `receive_address` varchar(255) DEFAULT NULL,
+  `delivery_cost` decimal(10,2) DEFAULT NULL,
+  `payment_id` char(36) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `code`, `user_id`, `status_id`, `receive_phone`, `receive_address`, `delivery_cost`, `payment_id`, `description`, `created_at`, `updated_at`) VALUES
+('9cf39436-3b12-4f37-b4b1-c31a95d84a2b', '20240907C592', '9ccffe6a-c7a1-4392-9c93-b64757665078', '33c397a4-6523-4e4b-b011-b0a025b68f81', '0971923203', 'Phường Quang Trung, Thành phố Hà Giang, Tỉnh Hà Giang', 30000.00, 'ec6d2cc6-466d-4157-a9b7-2bd9af79fdb2', NULL, '2024-09-07 02:02:55', '2024-09-09 20:31:05'),
+('9cf70cc7-0c18-4373-a8bc-9364d18ee2f4', '202409095C92', '9cd0016d-81b9-4122-8d61-b532608d9c4c', 'd122f2e1-0c43-4c9a-a490-853601297840', '0971923203', 'Xã Cần Yên, Huyện Hà Quảng, Tỉnh Cao Bằng', 30000.00, 'ec6d2cc6-466d-4157-a9b7-2bd9af79fdb2', NULL, '2024-09-08 19:27:32', '2024-09-08 20:17:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `order_id` char(36) NOT NULL,
+  `product_id` char(36) NOT NULL,
+  `size_id` char(36) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `unit_price` decimal(15,2) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `id` char(36) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`order_id`, `product_id`, `size_id`, `quantity`, `unit_price`, `created_at`, `updated_at`, `id`) VALUES
+('9cf70cc7-0c18-4373-a8bc-9364d18ee2f4', 'a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '28012001-556a-11ef-acc5-f8da0c52c1d8', 1, 2900000.00, '2024-09-08 19:27:33', '2024-09-08 19:27:33', '0f7223b2-7005-4979-8378-7219b78a04f9'),
+('9cf39436-3b12-4f37-b4b1-c31a95d84a2b', 'c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '28012001-556a-11ef-acc5-f8da0c52c1d8', 1, 2600000.00, '2024-09-07 02:02:55', '2024-09-07 02:02:55', '26668010-cc5c-4a9b-b89e-7e99bd919171'),
+('9cf70cc7-0c18-4373-a8bc-9364d18ee2f4', 'c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '28012001-556a-11ef-acc5-f8da0c52c1d8', 1, 2600000.00, '2024-09-08 19:27:33', '2024-09-08 19:27:33', 'ff6e6090-0dc0-46d1-a106-973a0beae30f');
 
 -- --------------------------------------------------------
 
@@ -145,6 +245,29 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` char(36) NOT NULL,
+  `code` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `code`, `name`, `description`, `created_at`, `updated_at`) VALUES
+('3ccd33af-44a3-446e-9313-74ba0ea029ab', '#ATM', 'Thanh toán ATM MoMo', 'Người mua có thể chuyển tiền trực tiếp từ tài khoản ngân hàng của họ sang tài khoản của người bán. Phương thức này thường được sử dụng cho các giao dịch lớn và trực tuyến.', '2024-09-01 08:27:17', '2024-09-05 03:36:48'),
+('ec6d2cc6-466d-4157-a9b7-2bd9af79fdb2', '#TM', 'Thanh toán khi nhận được hàng', 'Thanh toán trực tiếp bằng tiền mặt là một phương thức phổ biến, đặc biệt là trong các giao dịch hàng ngày, mua sắm tại cửa hàng truyền thống hoặc chợ.', '2024-09-01 08:20:19', '2024-09-08 19:25:16');
 
 -- --------------------------------------------------------
 
@@ -188,7 +311,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `code`, `name`, `description`, `price`, `category_id`, `event_id`, `created_at`, `updated_at`) VALUES
-('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', 'AD01', 'Adidas Ultraboost 21', 'Giày chạy bộ Adidas Ultraboost 21 với công nghệ Boost mang lại sự êm ái và đàn hồi cao.', 3500000, '09c0f6f1-5243-46d8-8730-163e41db778b', '1a2b3c4d-1a2b-1a2b-1a2b-1a2b3c4d5e6f', NULL, NULL),
+('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', 'AD01', 'Adidas Ultraboost 21', 'Giày chạy bộ Adidas Ultraboost 21 với công nghệ Boost mang lại sự êm ái và đàn hồi cao.', 3500000, '09c0f6f1-5243-46d8-8730-163e41db778b', '2df4098f-cb49-4ecb-8590-deedfc671491', NULL, '2024-09-02 19:57:15'),
 ('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', 'VN02', 'Vans Slip-On', 'Vans Slip-On với thiết kế đơn giản và dễ dàng mang vào, phù hợp cho phong cách thường ngày và sự tiện lợi.', 750000, '560b6027-d8e8-45fa-aaa9-6a6ce2d5c640', '2b3c4d5e-2b3c-2b3c-2b3c-2b3c4d5e6f7g', NULL, NULL),
 ('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', 'AD02', 'Adidas NMD_R1', 'Giày thể thao Adidas NMD_R1 với thiết kế năng động và đế Boost êm ái.', 2900000, '09c0f6f1-5243-46d8-8730-163e41db778b', '2b3c4d5e-2b3c-2b3c-2b3c-2b3c4d5e6f7g', NULL, NULL),
 ('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', 'VN03', 'Vans Authentic', 'Vans Authentic với thiết kế cổ điển và chất liệu vải bông, mang lại sự thoải mái và phong cách trẻ trung.', 700000, '560b6027-d8e8-45fa-aaa9-6a6ce2d5c640', '2df4098f-cb49-4ecb-8590-deedfc671491', NULL, NULL),
@@ -399,12 +522,191 @@ CREATE TABLE `product_sizes` (
 --
 
 INSERT INTO `product_sizes` (`product_id`, `size_id`, `quantity`, `created_at`, `updated_at`) VALUES
-('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:35:03', '2024-08-19 07:35:03'),
+('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '28012001-556a-11ef-acc5-f8da0c52c1d8', 90, '2024-08-19 07:35:03', '2024-08-19 07:35:03'),
 ('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:47:24', '2024-08-19 08:29:20'),
 ('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:48:31', '2024-08-19 08:30:17'),
 ('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:48:50', '2024-08-19 07:48:50'),
 ('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:32:16', '2024-08-19 08:32:16'),
-('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:32:28', '2024-08-19 08:32:28');
+('a1b2c3d4-e5f6-7g8h-9i0j-klmnopqrstu1', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:32:28', '2024-08-19 08:32:28'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:05:00', '2024-08-19 04:05:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:10:00', '2024-08-19 04:10:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:15:00', '2024-08-19 04:15:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:20:00', '2024-08-19 04:20:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:25:00', '2024-08-19 04:25:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:30:00', '2024-08-19 04:30:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:35:00', '2024-08-19 04:35:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:40:00', '2024-08-19 04:40:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:45:00', '2024-08-19 04:45:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805bc88-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:50:00', '2024-08-19 04:50:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-k234567l', '2805bd5c-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 04:55:00', '2024-08-19 04:55:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '28012001-556a-11ef-acc5-f8da0c52c1d8', 99, '2024-08-19 05:00:00', '2024-08-19 05:00:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:05:00', '2024-08-19 05:05:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:10:00', '2024-08-19 05:10:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:15:00', '2024-08-19 05:15:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:20:00', '2024-08-19 05:20:00'),
+('a2b3c4d5-e6f7-8g9h-0i1j-klmnopqrstu2', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:25:00', '2024-08-19 05:25:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:30:00', '2024-08-19 05:30:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:35:00', '2024-08-19 05:35:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:40:00', '2024-08-19 05:40:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:45:00', '2024-08-19 05:45:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:50:00', '2024-08-19 05:50:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-l345678m', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 05:55:00', '2024-08-19 05:55:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-lmnopqrstu3', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:00:00', '2024-08-19 06:00:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-lmnopqrstu3', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:05:00', '2024-08-19 06:05:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-lmnopqrstu3', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:10:00', '2024-08-19 06:10:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-lmnopqrstu3', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:15:00', '2024-08-19 06:15:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-lmnopqrstu3', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:20:00', '2024-08-19 06:20:00'),
+('b3c4d5e6-f7g8-9h0i-1j2k-lmnopqrstu3', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:25:00', '2024-08-19 06:25:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-m456789n', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:30:00', '2024-08-19 06:30:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-m456789n', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:35:00', '2024-08-19 06:35:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-m456789n', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:40:00', '2024-08-19 06:40:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-m456789n', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:45:00', '2024-08-19 06:45:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-m456789n', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:50:00', '2024-08-19 06:50:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-m456789n', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 06:55:00', '2024-08-19 06:55:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '28012001-556a-11ef-acc5-f8da0c52c1d8', 98, '2024-08-19 07:00:00', '2024-08-19 07:00:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:05:00', '2024-08-19 07:05:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:10:00', '2024-08-19 07:10:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:15:00', '2024-08-19 07:15:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:20:00', '2024-08-19 07:20:00'),
+('c4d5e6f7-g8h9-0i1j-2k3l-mnopqrstu4', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:25:00', '2024-08-19 07:25:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-n567890o', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:30:00', '2024-08-19 07:30:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-n567890o', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:35:00', '2024-08-19 07:35:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-n567890o', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:40:00', '2024-08-19 07:40:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-n567890o', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:45:00', '2024-08-19 07:45:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-n567890o', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:50:00', '2024-08-19 07:50:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-n567890o', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 07:55:00', '2024-08-19 07:55:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-nopqrstuvw5', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:00:00', '2024-08-19 08:00:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-nopqrstuvw5', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:05:00', '2024-08-19 08:05:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-nopqrstuvw5', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:10:00', '2024-08-19 08:10:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-nopqrstuvw5', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:15:00', '2024-08-19 08:15:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-nopqrstuvw5', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:20:00', '2024-08-19 08:20:00'),
+('d5e6f7g8-h9i0-1j2k-3l4m-nopqrstuvw5', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:25:00', '2024-08-19 08:25:00'),
+('e1f2g3h4-i5j6-7k8l-9m0n-o123456p', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:30:00', '2024-08-19 08:30:00'),
+('e1f2g3h4-i5j6-7k8l-9m0n-o123456p', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:35:00', '2024-08-19 08:35:00'),
+('e1f2g3h4-i5j6-7k8l-9m0n-o123456p', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:40:00', '2024-08-19 08:40:00'),
+('e1f2g3h4-i5j6-7k8l-9m0n-o123456p', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:45:00', '2024-08-19 08:45:00'),
+('e1f2g3h4-i5j6-7k8l-9m0n-o123456p', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:50:00', '2024-08-19 08:50:00'),
+('e1f2g3h4-i5j6-7k8l-9m0n-o123456p', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, '2024-08-19 08:55:00', '2024-08-19 08:55:00'),
+('f2g3h4i5-j6k7-8l9m-0n1o-p234567q', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('f2g3h4i5-j6k7-8l9m-0n1o-p234567q', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('f2g3h4i5-j6k7-8l9m-0n1o-p234567q', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('f2g3h4i5-j6k7-8l9m-0n1o-p234567q', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('f2g3h4i5-j6k7-8l9m-0n1o-p234567q', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g3h4i5j6-k7l8-9m0n-1o2p-3456789r', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g3h4i5j6-k7l8-9m0n-1o2p-3456789r', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g3h4i5j6-k7l8-9m0n-1o2p-3456789r', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g3h4i5j6-k7l8-9m0n-1o2p-3456789r', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g3h4i5j6-k7l8-9m0n-1o2p-3456789r', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g8h9i0j1-k2l3-4m5n-6o7p-qrstuvw8', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g8h9i0j1-k2l3-4m5n-6o7p-qrstuvw8', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g8h9i0j1-k2l3-4m5n-6o7p-qrstuvw8', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g8h9i0j1-k2l3-4m5n-6o7p-qrstuvw8', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('g8h9i0j1-k2l3-4m5n-6o7p-qrstuvw8', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h4i5j6k7-l8m9-0n1o-2p3q-4567890s', '28012001-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h4i5j6k7-l8m9-0n1o-2p3q-4567890s', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h4i5j6k7-l8m9-0n1o-2p3q-4567890s', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h4i5j6k7-l8m9-0n1o-2p3q-4567890s', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h4i5j6k7-l8m9-0n1o-2p3q-4567890s', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h9i0j1k2-l3m4-5n6o-7p8q-rstuvw9x0', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h9i0j1k2-l3m4-5n6o-7p8q-rstuvw9x0', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h9i0j1k2-l3m4-5n6o-7p8q-rstuvw9x0', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h9i0j1k2-l3m4-5n6o-7p8q-rstuvw9x0', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('h9i0j1k2-l3m4-5n6o-7p8q-rstuvw9x0', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i0j1k2l3-m4n5-6o7p-8q9r-stuvw0xy1', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i0j1k2l3-m4n5-6o7p-8q9r-stuvw0xy1', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i0j1k2l3-m4n5-6o7p-8q9r-stuvw0xy1', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i0j1k2l3-m4n5-6o7p-8q9r-stuvw0xy1', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i0j1k2l3-m4n5-6o7p-8q9r-stuvw0xy1', '2805bc88-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i5j6k7l8-m9n0-1o2p-3q4r-5678901t', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i5j6k7l8-m9n0-1o2p-3q4r-5678901t', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i5j6k7l8-m9n0-1o2p-3q4r-5678901t', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i5j6k7l8-m9n0-1o2p-3q4r-5678901t', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('i5j6k7l8-m9n0-1o2p-3q4r-5678901t', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('k1l2m3n4-o5p6-7q8r-9s0t-uvwxyz1234a', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('k1l2m3n4-o5p6-7q8r-9s0t-uvwxyz1234a', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('k1l2m3n4-o5p6-7q8r-9s0t-uvwxyz1234a', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('k1l2m3n4-o5p6-7q8r-9s0t-uvwxyz1234a', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('k1l2m3n4-o5p6-7q8r-9s0t-uvwxyz1234a', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l2m3n4o5-p6q7-8r9s-0t1u-vwxyz2345b', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l2m3n4o5-p6q7-8r9s-0t1u-vwxyz2345b', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l2m3n4o5-p6q7-8r9s-0t1u-vwxyz2345b', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l2m3n4o5-p6q7-8r9s-0t1u-vwxyz2345b', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l2m3n4o5-p6q7-8r9s-0t1u-vwxyz2345b', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l3m4n5o6-p7q8-9r0s-1t2u-v345678w', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l3m4n5o6-p7q8-9r0s-1t2u-v345678w', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l3m4n5o6-p7q8-9r0s-1t2u-v345678w', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l3m4n5o6-p7q8-9r0s-1t2u-v345678w', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('l3m4n5o6-p7q8-9r0s-1t2u-v345678w', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m3n4o5p6-q7r8-9s0t-1u2v-wxyz3456c', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m3n4o5p6-q7r8-9s0t-1u2v-wxyz3456c', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m3n4o5p6-q7r8-9s0t-1u2v-wxyz3456c', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m3n4o5p6-q7r8-9s0t-1u2v-wxyz3456c', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m3n4o5p6-q7r8-9s0t-1u2v-wxyz3456c', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m4n5o6p7-q8r9-0s1t-2u3v-w456789x', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m4n5o6p7-q8r9-0s1t-2u3v-w456789x', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m4n5o6p7-q8r9-0s1t-2u3v-w456789x', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m4n5o6p7-q8r9-0s1t-2u3v-w456789x', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('m4n5o6p7-q8r9-0s1t-2u3v-w456789x', '2805bc88-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n4o5p6q7-r8s9-0t1u-2v3w-xyz4567d', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n4o5p6q7-r8s9-0t1u-2v3w-xyz4567d', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n4o5p6q7-r8s9-0t1u-2v3w-xyz4567d', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n4o5p6q7-r8s9-0t1u-2v3w-xyz4567d', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n4o5p6q7-r8s9-0t1u-2v3w-xyz4567d', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n5o6p7q8-r9s0-1t2u-3v4w-x567890y', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n5o6p7q8-r9s0-1t2u-3v4w-x567890y', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n5o6p7q8-r9s0-1t2u-3v4w-x567890y', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n5o6p7q8-r9s0-1t2u-3v4w-x567890y', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('n5o6p7q8-r9s0-1t2u-3v4w-x567890y', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('o5p6q7r8-s9t0-1u2v-3w4x-yz123456e', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('o5p6q7r8-s9t0-1u2v-3w4x-yz123456e', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('o5p6q7r8-s9t0-1u2v-3w4x-yz123456e', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('o5p6q7r8-s9t0-1u2v-3w4x-yz123456e', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('o5p6q7r8-s9t0-1u2v-3w4x-yz123456e', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('r3s4t5u6-v7w8-9x0y-1z2a-3456789h', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('r3s4t5u6-v7w8-9x0y-1z2a-3456789h', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('r3s4t5u6-v7w8-9x0y-1z2a-3456789h', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('r3s4t5u6-v7w8-9x0y-1z2a-3456789h', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('r3s4t5u6-v7w8-9x0y-1z2a-3456789h', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('s4t5u6v7-w8x9-0y1z-2a3b-456789i0', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('s4t5u6v7-w8x9-0y1z-2a3b-456789i0', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('s4t5u6v7-w8x9-0y1z-2a3b-456789i0', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('s4t5u6v7-w8x9-0y1z-2a3b-456789i0', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('s4t5u6v7-w8x9-0y1z-2a3b-456789i0', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('t5u6v7w8-x9y0-1z2a-3b4c-567890j1', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('t5u6v7w8-x9y0-1z2a-3b4c-567890j1', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('t5u6v7w8-x9y0-1z2a-3b4c-567890j1', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('t5u6v7w8-x9y0-1z2a-3b4c-567890j1', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('t5u6v7w8-x9y0-1z2a-3b4c-567890j1', '2805bbc7-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('u1v2w3x4-y5z6-7a8b-9c0d-ef123456g', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('u1v2w3x4-y5z6-7a8b-9c0d-ef123456g', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('u1v2w3x4-y5z6-7a8b-9c0d-ef123456g', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('u1v2w3x4-y5z6-7a8b-9c0d-ef123456g', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('u1v2w3x4-y5z6-7a8b-9c0d-ef123456g', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('v2w3x4y5-z6a7-8b9c-0d1e-f2345678h', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('v2w3x4y5-z6a7-8b9c-0d1e-f2345678h', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('v2w3x4y5-z6a7-8b9c-0d1e-f2345678h', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('v2w3x4y5-z6a7-8b9c-0d1e-f2345678h', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('v2w3x4y5-z6a7-8b9c-0d1e-f2345678h', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('w3x4y5z6-a7b8-9c0d-1e2f-3456789i', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('w3x4y5z6-a7b8-9c0d-1e2f-3456789i', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('w3x4y5z6-a7b8-9c0d-1e2f-3456789i', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('w3x4y5z6-a7b8-9c0d-1e2f-3456789i', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('w3x4y5z6-a7b8-9c0d-1e2f-3456789i', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('x4y5z6a7-b8c9-0d1e-2f3g-456789j0', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('x4y5z6a7-b8c9-0d1e-2f3g-456789j0', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('x4y5z6a7-b8c9-0d1e-2f3g-456789j0', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('x4y5z6a7-b8c9-0d1e-2f3g-456789j0', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('x4y5z6a7-b8c9-0d1e-2f3g-456789j0', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('y5z6a7b8-c9d0-1e2f-3g4h-567890j1', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('y5z6a7b8-c9d0-1e2f-3g4h-567890j1', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('y5z6a7b8-c9d0-1e2f-3g4h-567890j1', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('y5z6a7b8-c9d0-1e2f-3g4h-567890j1', '2805b9dc-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('y5z6a7b8-c9d0-1e2f-3g4h-567890j1', '2805ba8e-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('z1a2b3c4-d5e6-7f8g-9h0i-j123456k', '2805b409-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('z1a2b3c4-d5e6-7f8g-9h0i-j123456k', '2805b5c1-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('z1a2b3c4-d5e6-7f8g-9h0i-j123456k', '2805b703-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('z1a2b3c4-d5e6-7f8g-9h0i-j123456k', '2805b833-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL),
+('z1a2b3c4-d5e6-7f8g-9h0i-j123456k', '2805b925-556a-11ef-acc5-f8da0c52c1d8', 100, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -441,23 +743,78 @@ INSERT INTO `sizes` (`id`, `code`, `name`, `description`, `created_at`, `updated
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `statuses`
 --
 
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
+CREATE TABLE `statuses` (
+  `id` char(36) NOT NULL,
+  `code` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- Dumping data for table `statuses`
+--
+
+INSERT INTO `statuses` (`id`, `code`, `name`, `description`, `created_at`, `updated_at`) VALUES
+('172e536d-61f8-4ecb-8d97-83e1e9c5fb5e', 'S1', 'Chờ xác nhận', 'Trạng thái đầu tiên khi khách hàng đặt hàng thành công và hệ thống ghi nhận thông tin đơn hàng.', '2024-09-01 07:57:57', '2024-09-01 07:57:57'),
+('33c397a4-6523-4e4b-b011-b0a025b68f81', 'S5', 'Đã hủy', NULL, '2024-09-01 07:58:41', '2024-09-01 07:58:41'),
+('5a8ed144-0f68-4ffb-8b96-6863c9a0333e', 'S2', 'Chờ lấy hàng', 'Sản phẩm đã đóng gói xong và chờ đối tác vận chuyển đến lấy.', '2024-09-01 07:58:17', '2024-09-01 07:58:17'),
+('6f1bc60b-0860-48b2-8566-b2a93434e7a1', 'S3', 'Đang giao hàng', NULL, '2024-09-01 07:58:32', '2024-09-01 07:58:32'),
+('d122f2e1-0c43-4c9a-a490-853601297840', 'S4', 'Đã giao hàng', NULL, '2024-09-01 07:58:37', '2024-09-01 07:58:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` char(36) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `google_id` varchar(255) DEFAULT NULL,
+  `role` varchar(255) NOT NULL DEFAULT 'client'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `username`, `google_id`, `role`) VALUES
+('9ccffe6a-c7a1-4392-9c93-b64757665078', 'Admin', 'tutai.dev@gmail.com', NULL, '$2y$10$wI0k6Hq1ZFMvd8J35CRmNueX0yZOup4rrPwAMnbon1PRCJCcP6Eja', NULL, '2024-08-20 09:30:05', '2024-09-09 18:14:27', 'admin', NULL, 'admin'),
+('9cd0016d-81b9-4122-8d61-b532608d9c4c', 'Tú Tài', 'dtuandat2004@gmail.com', NULL, '$2y$10$LpfhxsITFAG7KCsgPJ3ozOMGmEudIKOThAUX/jvUy3IbN7dG7mFLK', NULL, '2024-08-20 09:38:30', '2024-09-09 18:14:11', 'root', NULL, 'client'),
+('9cf72aa1-3070-4b07-9020-d40d5f05b5ba', 'Nguyễn Ngọc Tú Tài', 'tutaihocgioi@gmail.com', NULL, '$2y$10$vpS3iw9h9uxl0ok3c.hvaes1niSGFf9iXBNS/7GWo6R4ISZhdsclu', NULL, '2024-09-08 20:51:01', '2024-09-09 18:14:35', NULL, '114319876416698980495', 'client'),
+('9cf8ff39-d7b2-4d78-a802-62eedf992827', 'NGUYEN VAN B', 'loptao@gmail.com', NULL, '$2y$10$xFrRSt56Sd.xvfEFaXcKyOjThCcUIMntptoG.6ciYOf.7tDGKgO5y', NULL, '2024-09-09 18:41:18', '2024-09-09 19:30:47', 'root1', NULL, 'client');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `carts_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cart_items_cart_id_foreign` (`cart_id`),
+  ADD KEY `cart_items_product_id_foreign` (`product_id`),
+  ADD KEY `cart_items_size_id_foreign` (`size_id`);
 
 --
 -- Indexes for table `categories`
@@ -487,10 +844,36 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `orders_code_unique` (`code`),
+  ADD KEY `orders_user_id_foreign` (`user_id`),
+  ADD KEY `orders_status_id_foreign` (`status_id`),
+  ADD KEY `orders_payment_id_foreign` (`payment_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_items_product_id_foreign` (`product_id`),
+  ADD KEY `order_items_size_id_foreign` (`size_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `payments_code_unique` (`code`);
 
 --
 -- Indexes for table `personal_access_tokens`
@@ -531,11 +914,19 @@ ALTER TABLE `sizes`
   ADD UNIQUE KEY `sizes_code_unique` (`code`);
 
 --
+-- Indexes for table `statuses`
+--
+ALTER TABLE `statuses`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `statuses_code_unique` (`code`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD UNIQUE KEY `users_google_id_unique` (`google_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -551,7 +942,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -560,14 +951,38 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `carts`
+--
+ALTER TABLE `carts`
+  ADD CONSTRAINT `carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `cart_items`
+--
+ALTER TABLE `cart_items`
+  ADD CONSTRAINT `cart_items_cart_id_foreign` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cart_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `cart_items_size_id_foreign` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_payment_id_foreign` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `statuses` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `order_items_size_id_foreign` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
