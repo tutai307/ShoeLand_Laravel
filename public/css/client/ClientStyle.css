@@ -1,0 +1,340 @@
+.dropdown-item-image {
+    width: 40px; /* Kích thước của ảnh */
+    height: 40px; /* Đảm bảo chiều cao của ảnh bằng chiều rộng để giữ hình tròn */
+    object-fit: cover; /* Cắt ảnh để phù hợp với hình tròn */
+}
+
+.dropdown-item span {
+    margin-left: 10px; /* Thay đổi giá trị này để điều chỉnh khoảng cách */
+}
+
+/* Thanh cuộn cho danh sách dropdown */
+.dropdown-menu-scrollable {
+    max-height: 200px; /* Chiều cao tối đa của danh sách dropdown, thay đổi nếu cần */
+    overflow-y: auto; /* Thêm thanh cuộn dọc nếu nội dung vượt quá chiều cao tối đa */
+}
+
+.dropdown-menu-scrollable li {
+    display: block;
+    max-height: calc(
+        4 * 30px
+    ); /* Chiều cao tối đa của 4 mục, mỗi mục cao 30px */
+    overflow: hidden; /* Ẩn các mục vượt quá chiều cao tối đa */
+}
+
+.custom-img {
+    height: 500px; /* Điều chỉnh chiều cao ảnh theo ý muốn */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+    border-radius: 20px; /* Bo tròn góc */
+}
+
+.custom-category-img {
+    width: 100px;
+    min-height: 120px;
+    object-fit: cover;
+}
+
+/* Đặt ảnh sản phẩm thành sáng trắng hơn và thêm hiệu ứng zoom khi hover */
+.product-img {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: brightness(1.1);
+}
+
+.product-img:hover {
+    transform: scale(1.05);
+    overflow: hidden;
+}
+
+.title_event {
+    color: green;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 18px;
+    margin-top: 8px;
+}
+
+.discount-overlay {
+    position: absolute;
+    width: 40px;
+    text-align: center;
+    top: 8px;
+    left: -4px;
+    background-color: #ff0000; /* Màu nền của overlay */
+    color: #ffffff; /* Màu chữ trên overlay */
+    padding: 3px; /* Khoảng cách padding của overlay */
+    font-size: 12px; /* Kích thước chữ của overlay */
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.discount-overlay::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    border-top: 3px solid #ff0000;
+    border-left: 3px solid transparent;
+    filter: brightness(60%);
+}
+
+/* Thay đổi màu nền và chữ của card-body cho phần thông tin sản phẩm */
+.card-body.bg-dark {
+    background-color: #f5f6f7 !important;
+    color: #fff;
+}
+
+.card-body.bg-dark .text-des {
+    color: #474747;
+    font-weight: 400;
+}
+
+.productClass {
+    display: flex;
+    position: relative;
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+        rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    background: rgb(239, 239, 239);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.carousel-control-prev {
+    left: -6rem; /* Điều chỉnh khoảng cách ra xa hơn với giá trị âm */
+}
+
+.carousel-control-next {
+    right: -6rem; /* Điều chỉnh khoảng cách ra xa hơn với giá trị âm */
+}
+
+.product-container {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 300px;
+}
+
+/* Thêm vào file CSS của bạn */
+header {
+    transition: top 0.3s;
+}
+
+.hide-header {
+    top: -100px; /* Hoặc chiều cao của header của bạn */
+    position: fixed;
+    width: 100%;
+}
+
+.appCard {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.appCard + .appCard {
+    margin-top: 20px;
+}
+
+.modal-img-container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; /* Tạo tỷ lệ khung hình 4:3 hoặc tùy chọn */
+    overflow: hidden;
+    background: #000; /* Tùy chọn, để hình ảnh nổi bật hơn */
+    border-radius: 10px;
+}
+
+.modal-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cắt ảnh để vừa khung, không để phần thừa */
+    border-radius: 10px;
+}
+
+.product_gift {
+    border: 1px dashed #189eff;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.gift_list i {
+    color: rgb(0, 153, 0);
+}
+
+.success-checkmark {
+    width: 80px;
+    height: 115px;
+    margin: 0 auto;
+
+    .check-icon {
+        width: 80px;
+        height: 80px;
+        position: relative;
+        border-radius: 50%;
+        box-sizing: content-box;
+        border: 4px solid #4caf50;
+
+        &::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+
+        &::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            height: 100px;
+            position: absolute;
+            background: #ffffff;
+            transform: rotate(-45deg);
+        }
+
+        .icon-line {
+            height: 5px;
+            background-color: #4caf50;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+
+            &.line-tip {
+                top: 46px;
+                left: 14px;
+                width: 25px;
+                transform: rotate(45deg);
+                animation: icon-line-tip 0.75s;
+            }
+
+            &.line-long {
+                top: 38px;
+                right: 8px;
+                width: 47px;
+                transform: rotate(-45deg);
+                animation: icon-line-long 0.75s;
+            }
+        }
+
+        .icon-circle {
+            top: -4px;
+            left: -4px;
+            z-index: 10;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            position: absolute;
+            box-sizing: content-box;
+            border: 4px solid rgba(76, 175, 80, 0.5);
+        }
+
+        .icon-fix {
+            top: 8px;
+            width: 5px;
+            left: 26px;
+            z-index: 1;
+            height: 85px;
+            position: absolute;
+            transform: rotate(-45deg);
+            background-color: #ffffff;
+        }
+    }
+}
+
+@keyframes rotate-circle {
+    0% {
+        transform: rotate(-45deg);
+    }
+
+    5% {
+        transform: rotate(-45deg);
+    }
+
+    12% {
+        transform: rotate(-405deg);
+    }
+
+    100% {
+        transform: rotate(-405deg);
+    }
+}
+
+@keyframes icon-line-tip {
+    0% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+
+    54% {
+        width: 0;
+        left: 1px;
+        top: 19px;
+    }
+
+    70% {
+        width: 50px;
+        left: -8px;
+        top: 37px;
+    }
+
+    84% {
+        width: 17px;
+        left: 21px;
+        top: 48px;
+    }
+
+    100% {
+        width: 25px;
+        left: 14px;
+        top: 45px;
+    }
+}
+
+@keyframes icon-line-long {
+    0% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+
+    65% {
+        width: 0;
+        right: 46px;
+        top: 54px;
+    }
+
+    84% {
+        width: 55px;
+        right: 0px;
+        top: 35px;
+    }
+
+    100% {
+        width: 47px;
+        right: 8px;
+        top: 38px;
+    }
+}
+
