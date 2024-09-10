@@ -9,11 +9,10 @@
             <b>Quản lý Người Dùng</b>
         </legend>
         <div class="text-left d-flex justify-content-between align-items-center mb-3">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createsizeModal">
-                <i class="fa-solid fa-plus"></i>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
                 Thêm Người Dùng
             </button>
-
+            @include('admin.users.create')
             <div>
                 <form method="GET" action="{{ route('admin.users.index') }}">
                     <div class="input-group">
@@ -48,15 +47,17 @@
                     <td class="align-middle">{{ $user->role }}</td>           
                     <td class="align-middle">
                         <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#editsizeModal{{ $user->id }}">
+                            data-bs-target="#editUserModal{{ $user->id }}">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
-                            data-bs-target="#deletesizeModal{{ $user->id }}">
+                            data-bs-target="#deleteUserModal{{ $user->id }}">
                             <i class="fa-solid fa-trash"></i>
                         </button>
                     </td>
                 </tr>
+                @include('admin.users.edit')
+                @include('admin.users.delete')
             @empty
                 <tr>
                     <td class="align-middle" colspan="7" class="text-center">Chưa có Người Dùng nào.</td>
