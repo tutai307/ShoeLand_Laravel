@@ -33,4 +33,6 @@ Route::get('/payment-done', [ClientPaymentController::class, 'thanks'])->name('p
 
 Route::get('/info', [UserController::class, 'viewInfo'])->name('info.view');
 Route::post('/info', [UserController::class, 'updateInfo'])->name('info.update');
+
+Route::post('/send-mail/{id}', [OrderController::class, 'sendMail'])->name('orders.sendMail');
 ?>

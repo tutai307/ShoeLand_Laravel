@@ -60,6 +60,15 @@
                                     </button>
                                 @endif
 
+                                <button type="button" class="btn btn-info btn-sm" onclick="event.preventDefault(); document.getElementById('sendBillForm{{ $order->id }}').submit();">
+                                    Gửi hóa đơn
+                                </button>
+                                
+                                <form id="sendBillForm{{ $order->id }}" action="{{ route('orders.sendMail', $order->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                                
+
                                 <!-- Modal Huỷ Đơn Hàng -->
                                 <div class="modal fade" id="cancelOrderModal{{ $order->id }}" tabindex="-1"
                                     aria-labelledby="cancelOrderModalLabel{{ $order->id }}" aria-hidden="true">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OrderInvoice;
+use App\Mail\OrderInvoiceMail;
 use Illuminate\Http\Request;
 use App\Models\CartItem;
 use App\Models\Category;
@@ -68,5 +69,23 @@ class OrderController extends Controller
 
         // Thông báo lỗi nếu không thể hủy
         return redirect()->bsck()->with('msg', 'Không thể hủy đơn hàng.');
+    }
+
+    public function sendMail($id)
+    {
+        // Lấy thông tin đơn hàng
+        $order = Order::findOrFail($id);
+        if($order->status->code === "S5"){
+            return redirect()->back()->with('msg', 'Đơn hàng đã bị huỷ, không thể gửi hoá đơn!');
+        } else {
+            // Lấy email người nhận từ đơn hàng (ví dụ là email của người đặt)
+            $userEmail = $order->user->email;
+    
+            // Gửi email với thông tin hóa đơn
+            Mail::to($userEmail)->send(new OrderInvoiceMail($order));
+    
+            // Thông báo thành công
+            return redirect()->back()->with('msg', 'Hoá đơn đã được gửi thành công!');
+        }
     }
 }
