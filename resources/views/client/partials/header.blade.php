@@ -49,10 +49,9 @@
                             {{ Auth::user()->name }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            <li><a Thông class="dropdown-item" href="">Thông tin cá nhân</a></li>
-                            <li><a class="dropdown-item" href="" >Đơn hàng</a></li>
+                            <li><a Thông class="dropdown-item pt-0" href="{{ route('info.view') }}">Đơn hàng</a></li>
                             <li>
-                                <form action="{{ route('logout') }}" method="POST" class="m-0">
+                                <form action="{{ route('logout') }}" method="POST" class="mb-0">
                                     @csrf
                                     <button type="submit" class="dropdown-item">Đăng xuất</button>
                                 </form>

@@ -7,6 +7,8 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\Client\UserController;
+
 Route::get('/', function () {
     return view('client.home');
 });
@@ -23,7 +25,12 @@ Route::post('/order/checkout', [OrderController::class, 'checkout'])->name('orde
 
 
 Route::get('/payment', [OrderController::class, 'index'])->name('payment.index');
+// Route để xử lý việc hủy đơn hàng từ phía người dùng
+Route::post('/orders/{order}/cancel', [OrderController::class, 'cancelUserOrder'])->name('orders.cancel');
+
 Route::post('/payment', [ClientPaymentController::class, 'handle'])->name('payment.handle');
 Route::get('/payment-done', [ClientPaymentController::class, 'thanks'])->name('payment.thanks');
 
+Route::get('/info', [UserController::class, 'viewInfo'])->name('info.view');
+Route::post('/info', [UserController::class, 'updateInfo'])->name('info.update');
 ?>

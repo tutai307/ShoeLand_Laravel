@@ -45,4 +45,10 @@ class OrderItem extends Model
     {
         return $this->belongsTo(Size::class);
     }
+
+    // Phương thức mới để lấy hình ảnh chính của sản phẩm
+    public function productImage()
+    {
+        return $this->product->mainImage;
+    }
 }
