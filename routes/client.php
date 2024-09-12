@@ -7,6 +7,7 @@ use App\Http\Controllers\Client\HomeController;
 use App\Http\Controllers\Client\OrderController;
 use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductController;
+use App\Http\Controllers\Client\SearchingController;
 use App\Http\Controllers\Client\UserController;
 
 Route::get('/', function () {
@@ -35,4 +36,8 @@ Route::get('/info', [UserController::class, 'viewInfo'])->name('info.view');
 Route::post('/info', [UserController::class, 'updateInfo'])->name('info.update');
 
 Route::post('/send-mail/{id}', [OrderController::class, 'sendMail'])->name('orders.sendMail');
+
+Route::get('/searching', [SearchingController::class, 'index'])->name('searching.index');
+
+
 ?>
