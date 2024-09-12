@@ -185,14 +185,11 @@
                     <div class="product_quantity mt-3 mb-3">
                         <label for="quantity" class="fw-bold">Số lượng:</label>
                         <div class="input-group mt-2" style="width: 120px;">
-                            <button class="btn btn-success quantity-btn" type="button" id="decrease-quantity"><i
-                                    class="fa-solid fa-minus"></i></button>
-                            <input disabled id="quantity" name="quantity" type="text" min="1" value="1"
-                                class="form-control text-center">
-                            <button class="btn btn-success quantity-btn" type="button" id="increase-quantity"><i
-                                    class="fa-solid fa-plus"></i></button>
+                            <button class="btn btn-success quantity-btn" type="button" id="decrease-quantity"><i class="fa-solid fa-minus"></i></button>
+                            <input id="quantity" name="quantity" type="text" min="1" value="1" class="form-control text-center" readonly>
+                            <button class="btn btn-success quantity-btn" type="button" id="increase-quantity"><i class="fa-solid fa-plus"></i></button>
                         </div>
-                    </div>
+                    </div>                    
 
                     <div class="d-grid gap-2 mb-5">
                         <button class="btn btn-success" type="submit"><i class="fa-solid fa-cart-shopping mr-2"></i>Thêm giỏ hàng</button>
