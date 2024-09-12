@@ -46,6 +46,7 @@ Route::get('/email/verify/{email}', function ($email) {
     $user = Auth::user();
 
     $user->email = $email;
+    $user->email_verified_at = now();
     $user->save();
 
     return redirect()->route('info.view')->with('msg', 'Xác nhận email thành công.');

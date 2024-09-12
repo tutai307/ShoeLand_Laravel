@@ -27,7 +27,8 @@ class LoginController extends Controller
                 'name' => $user->name,
                 'email' => $user->email,
                 'google_id' => $user->id,
-                'password' => bcrypt('dummy-password'), // Chúng ta có thể tạo một password tạm thời
+                'password' => bcrypt('dummy-password'),
+                'email_verified_at' => now(),
             ]);
 
             Auth::login($newUser);
