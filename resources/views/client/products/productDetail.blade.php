@@ -182,12 +182,12 @@
                     </div>
 
                     <!-- Chọn số lượng -->
-                    <div class="d-flex align-items-center product_quantity mt-3 mb-3">
-                        <label for="quantity" class="fw-bold mr-5">Số lượng:</label>
-                        <div class="input-group" style="width: 120px;">
+                    <div class="product_quantity mt-3 mb-3">
+                        <label for="quantity" class="fw-bold">Số lượng:</label>
+                        <div class="input-group mt-2" style="width: 120px;">
                             <button class="btn btn-success quantity-btn" type="button" id="decrease-quantity"><i
                                     class="fa-solid fa-minus"></i></button>
-                            <input id="quantity" name="quantity" type="text" min="1" value="1"
+                            <input disabled id="quantity" name="quantity" type="text" min="1" value="1"
                                 class="form-control text-center">
                             <button class="btn btn-success quantity-btn" type="button" id="increase-quantity"><i
                                     class="fa-solid fa-plus"></i></button>
@@ -195,8 +195,7 @@
                     </div>
 
                     <div class="d-grid gap-2 mb-5">
-                        <button class="btn btn-success" type="submit"><i class="fa-solid fa-cart-shopping mr-2"></i>Đặt
-                            mua ngay</button>
+                        <button class="btn btn-success" type="submit"><i class="fa-solid fa-cart-shopping mr-2"></i>Thêm giỏ hàng</button>
                     </div>
                 </form>
             </div>
@@ -235,6 +234,45 @@
             </div>
         </div>
 
+        <div class="appCard row mr-0 ml-0">
+            <h4 class="title_event">THÔNG SỐ SẢN PHẨM</h4>
+            <table class="table table-bordered br-10">
+                <tbody>
+                    <tr>
+                        <th class="bg-light-gray text-dark" style="width: 230px;">Size</th>
+                        <td>
+                            @foreach ($product->sizes as $size)
+                                <span>{{ $size->name }}</span>{{ !$loop->last ? ',' : '' }}
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light-gray text-dark" style="width: 230px;">Quà tặng</th>
+                        <td>
+                            Full box + tax + bill, Tặng tất
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light-gray text-dark" style="width: 230px;">Mô tả</th>
+                        <td>
+                            {{ $product->description }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light-gray text-dark" style="width: 230px;">Loại hàng</th>
+                        <td>Siêu cấp</td>
+                    </tr>
+                    <tr>
+                        <th class="bg-light-gray text-dark" style="width: 230px;">Thương hiệu</th>
+                        <td>
+                            {{ $product->category->name }}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+
         <div class="container appCard my-4 border rounded blur-border">
             <div class="">
                 <h3 class="title_event">
@@ -255,47 +293,52 @@
                             <div class="row">
                                 @foreach ($chunk as $product)
                                 <div class="col-xs-12 col-sm-4 col-md-3 p-3">
-                                    <div class="w-90 productClass card position-relative blur-border">
-                                        <div class="over-hidden">
-                                            <img src="{{ $product->mainImage->content }}" class="card-img-top product-img" alt="{{ $product->name }}">
-                                        </div>
-                                        @if ($product->event && $product->event->discount && \Carbon\Carbon::now()->lessThanOrEqualTo(\Carbon\Carbon::parse($product->event->end_date)))
-                                            <div class="discount-overlay">
-                                                -{{ $product->event->discount }}%
+                                    <a href="{{ route('product.show', $product->id) }}" class="text-decoration-none text-reset">
+                                        <div class="w-90 productClass card position-relative blur-border">
+                                            <div class="over-hidden">
+                                                <img src="{{ $product->mainImage->content ?? 'default_image.jpg' }}" class="card-img-top product-img" alt="{{ $product->name }}">
                                             </div>
-                                        @endif
-                                        <div class="card-body d-flex flex-column bg-dark text-white">
-                                            <h6 style="color: #333" class="card-title text-center">{{ $product->name }}</h6>
-                                            <span class="d-block mb-2 text-des">
-                                                Mã sản phẩm: {{ $product->code }}
-                                            </span>
-                                            <div class="cdt-product-param text-des">
-                                                <span data-title="Loại Hàng"><i class="fa-solid fa-cart-arrow-down"></i> Like auth</span>
-                                            </div>
+                                
                                             @if ($product->event && $product->event->discount && \Carbon\Carbon::now()->lessThanOrEqualTo(\Carbon\Carbon::parse($product->event->end_date)))
-                                                @php
-                                                    $discount = $product->event->discount;
-                                                    $originalPrice = $product->price;
-                                                    $fakePrice = $originalPrice * (1 + $discount / 100);
-                                                @endphp
-                                                <p class="flex card-text fw-bold text-des">
-                                                    <span class="text-danger mr-6">
-                                                        {{ number_format($originalPrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
-                                                    </span>
-                                                    <br>
-                                                    <span class="text-decoration-line-through solid text-des">
-                                                        {{ number_format($fakePrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
-                                                    </span>
-                                                </p>
-                                            @else
-                                                <p class="card-text fw-bold text-des">
-                                                    {{ number_format($product->price, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
-                                                </p>
+                                                <div class="discount-overlay">
+                                                    -{{ $product->event->discount }}%
+                                                </div>
                                             @endif
-                                            <a href="{{ route('product.show', $product->id) }}" class="btn btn-light mt-auto">Xem chi tiết</a>
+                                
+                                            <div class="card-body d-flex flex-column bg-dark text-white">
+                                                <h6 style="color: #333" class="card-title text-center">{{ $product->name }}</h6>
+                                                <span class="d-block mb-2 text-des">
+                                                    Mã sản phẩm: {{ $product->code }}
+                                                </span>
+                                                <div class="cdt-product-param text-des">
+                                                    <span data-title="Loại Hàng"><i class="fa-solid fa-cart-arrow-down"></i> Like auth</span>
+                                                </div>
+                                
+                                                @if ($product->event && $product->event->discount && \Carbon\Carbon::now()->lessThanOrEqualTo(\Carbon\Carbon::parse($product->event->end_date)))
+                                                    @php
+                                                        $discount = $product->event->discount;
+                                                        $originalPrice = $product->price;
+                                                        $fakePrice = $originalPrice * (1 + $discount / 100);
+                                                    @endphp
+                                                    <p class="flex card-text fw-bold text-des">
+                                                        <span class="text-danger mr-6">
+                                                            {{ number_format($originalPrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
+                                                        </span>
+                                                        <br>
+                                                        <span class="text-decoration-line-through solid text-des">
+                                                            {{ number_format($fakePrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
+                                                        </span>
+                                                    </p>
+                                                @else
+                                                    <p class="card-text fw-bold text-des">
+                                                        {{ number_format($product->price, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
+                                                    </p>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
+                                
                                 
                                 @endforeach
                             </div>
@@ -335,47 +378,52 @@
                             <div class="row">
                                 @foreach ($chunk as $product)
                                 <div class="col-xs-12 col-sm-4 col-md-3 p-3">
-                                    <div class="w-90 productClass card position-relative blur-border">
-                                        <div class="over-hidden">
-                                            <img src="{{ $product->mainImage->content }}" class="card-img-top product-img" alt="{{ $product->name }}">
-                                        </div>
-                                        @if ($product->event && $product->event->discount && \Carbon\Carbon::now()->lessThanOrEqualTo(\Carbon\Carbon::parse($product->event->end_date)))
-                                            <div class="discount-overlay">
-                                                -{{ $product->event->discount }}%
+                                    <a href="{{ route('product.show', $product->id) }}" class="text-decoration-none text-reset">
+                                        <div class="w-90 productClass card position-relative blur-border">
+                                            <div class="over-hidden">
+                                                <img src="{{ $product->mainImage->content ?? 'default_image.jpg' }}" class="card-img-top product-img" alt="{{ $product->name }}">
                                             </div>
-                                        @endif
-                                        <div class="card-body d-flex flex-column bg-dark text-white">
-                                            <h6 style="color: #333" class="card-title text-center">{{ $product->name }}</h6>
-                                            <span class="d-block mb-2 text-des">
-                                                Mã sản phẩm: {{ $product->code }}
-                                            </span>
-                                            <div class="cdt-product-param text-des">
-                                                <span data-title="Loại Hàng"><i class="fa-solid fa-cart-arrow-down"></i> Like auth</span>
-                                            </div>
+                                
                                             @if ($product->event && $product->event->discount && \Carbon\Carbon::now()->lessThanOrEqualTo(\Carbon\Carbon::parse($product->event->end_date)))
-                                                @php
-                                                    $discount = $product->event->discount;
-                                                    $originalPrice = $product->price;
-                                                    $fakePrice = $originalPrice * (1 + $discount / 100);
-                                                @endphp
-                                                <p class="flex card-text fw-bold text-des">
-                                                    <span class="text-danger mr-6">
-                                                        {{ number_format($originalPrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
-                                                    </span>
-                                                    <br>
-                                                    <span class="text-decoration-line-through solid text-des">
-                                                        {{ number_format($fakePrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
-                                                    </span>
-                                                </p>
-                                            @else
-                                                <p class="card-text fw-bold text-des">
-                                                    {{ number_format($product->price, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
-                                                </p>
+                                                <div class="discount-overlay">
+                                                    -{{ $product->event->discount }}%
+                                                </div>
                                             @endif
-                                            <a href="{{ route('product.show', $product->id) }}" class="btn btn-light mt-auto">Xem chi tiết</a>
+                                
+                                            <div class="card-body d-flex flex-column bg-dark text-white">
+                                                <h6 style="color: #333" class="card-title text-center">{{ $product->name }}</h6>
+                                                <span class="d-block mb-2 text-des">
+                                                    Mã sản phẩm: {{ $product->code }}
+                                                </span>
+                                                <div class="cdt-product-param text-des">
+                                                    <span data-title="Loại Hàng"><i class="fa-solid fa-cart-arrow-down"></i> Like auth</span>
+                                                </div>
+                                
+                                                @if ($product->event && $product->event->discount && \Carbon\Carbon::now()->lessThanOrEqualTo(\Carbon\Carbon::parse($product->event->end_date)))
+                                                    @php
+                                                        $discount = $product->event->discount;
+                                                        $originalPrice = $product->price;
+                                                        $fakePrice = $originalPrice * (1 + $discount / 100);
+                                                    @endphp
+                                                    <p class="flex card-text fw-bold text-des">
+                                                        <span class="text-danger mr-6">
+                                                            {{ number_format($originalPrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
+                                                        </span>
+                                                        <br>
+                                                        <span class="text-decoration-line-through solid text-des">
+                                                            {{ number_format($fakePrice, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
+                                                        </span>
+                                                    </p>
+                                                @else
+                                                    <p class="card-text fw-bold text-des">
+                                                        {{ number_format($product->price, 0, ',', '.') }} <i class="fa-solid fa-dong-sign"></i>
+                                                    </p>
+                                                @endif
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
+                                
                                 
                                 @endforeach
                             </div>
@@ -446,7 +494,6 @@
                     sizeButtons.forEach(btn => btn.classList.remove('active'));
                     sizeButtons.forEach(btn => btn.classList.add('btn-outline-success'));
                     // Thêm lớp 'btn-success' vào nút được chọn
-                    // this.classList.remove('btn-outline-success');
                     this.classList.add('active');
                     // Gán giá trị của size vào input hidden
                     sizeInput.value = this.getAttribute('data-size-id');

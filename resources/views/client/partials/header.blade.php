@@ -27,10 +27,10 @@
                     </ul>
                 </div>
 
-                <form class="d-flex" role="search" action="/search" method="GET">
+                <form class="d-flex" role="search" action="{{ route('searching.index') }}" method="GET">
                     <div class="input-group">
                         <input class="form-control" type="search" placeholder="Tìm kiếm sản phẩm..."
-                            aria-label="Search" name="q">
+                            aria-label="Search" name="key">
                         <button class="btn btn-success" type="submit">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
