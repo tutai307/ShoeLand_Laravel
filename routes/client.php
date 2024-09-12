@@ -9,6 +9,7 @@ use App\Http\Controllers\Client\PaymentController as ClientPaymentController;
 use App\Http\Controllers\Client\ProductController;
 use App\Http\Controllers\Client\SearchingController;
 use App\Http\Controllers\Client\UserController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('client.home');
@@ -39,5 +40,13 @@ Route::post('/send-mail/{id}', [OrderController::class, 'sendMail'])->name('orde
 
 Route::get('/searching', [SearchingController::class, 'index'])->name('searching.index');
 
+Route::get('/email/verify/{email}', function ($email) {
+    /** @var \App\Models\User $user **/
 
-?>
+    $user = Auth::user();
+
+    $user->email = $email;
+    $user->save();
+
+    return redirect()->route('info.view')->with('msg', 'Xác nhận email thành công.');
+})->name('email.verify');
